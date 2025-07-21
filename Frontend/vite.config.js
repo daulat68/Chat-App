@@ -6,4 +6,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  daisyui: {
+    themes: ['light', 'dark', 'cupcake'], 
+  },
 })

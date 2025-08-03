@@ -2,13 +2,16 @@ services:
   - type: web
     name: backend
     env: node
-    rootDir: Backend
-    buildCommand: npm install
-    startCommand: npm start
+    buildCommand: cd Backend && npm install
+    startCommand: cd Backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+    autoDeploy: true
 
   - type: web
     name: frontend
     env: static
-    rootDir: Frontend
-    buildCommand: npm install && npm run build
-    staticPublishPath: dist
+    buildCommand: cd Frontend && npm install && npm run build
+    staticPublishPath: Frontend/dist
+    autoDeploy: true

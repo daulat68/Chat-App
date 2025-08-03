@@ -1,0 +1,26 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "daisyui": "^5.0.46"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "",
+    "start": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daulat68/Chat-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/daulat68/Chat-App/issues"
+  },
+  "homepage": "https://github.com/daulat68/Chat-App#readme"
+}

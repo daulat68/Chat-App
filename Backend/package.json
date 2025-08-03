@@ -4,8 +4,8 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "start": "node src/index.js",
-    "startnode": "node src/index.js"
+    "start": "node index.js",
+    "startnode": "node index.js"
   },
   "keywords": [],
   "author": "Daulat",

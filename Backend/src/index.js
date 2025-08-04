@@ -31,7 +31,6 @@ if (process.env.NODE_ENV === "production") {
 
 
 app.get(/(.*)/, (req, res) => {
-    console.log(`Catch-all middleware triggered for path: ${req.path}`)
     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
 })
 }

@@ -25,6 +25,7 @@ const App = () => {
     </div>
   )
   return (
+    console.log("Theme:", theme),
     <div data-theme={theme}>
       <Navbar />
       <Routes>

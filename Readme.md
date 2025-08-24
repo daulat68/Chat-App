@@ -43,3 +43,10 @@ A real-time chat application built with the **MERN stack**, **Socket.io**, **Tai
 ### 1. Clone the repository
 ```bash
 git clone https://github.com/daulat68/Chat-App.git
+```
+
+You can view the live version of the app here: 
+https://chat-app-jwzl.onrender.com/
+
+###    Note:
+The app may take a few seconds to load the first time as the server is starting up. Please be patient on the first visit.

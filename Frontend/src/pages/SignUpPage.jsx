@@ -4,6 +4,8 @@ import { Eye, EyeOff, Loader2, Lock, Mail, MessagesSquare, User } from "lucide-r
 import { Link } from "react-router-dom";
 import AuthImagePattern from "../components/AuthImagePattern";
 import toast from "react-hot-toast"
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -14,6 +16,12 @@ const SignUpPage = () => {
   })
 
   const {signup, isSigningUp} = useAuthStore()
+  const { pendingEmail } = useAuthStore()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (pendingEmail) navigate('/verify-otp')
+  }, [pendingEmail, navigate])
 
   const validateForm = () => {
     if (!formData.fullName.trim()) return toast.error("Full name is required")

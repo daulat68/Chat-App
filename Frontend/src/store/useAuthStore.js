@@ -7,9 +7,12 @@ const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001
 
 export const useAuthStore = create((set, get) => ({
     authUser: null,
+    pendingEmail: null,
     isSigningUp: false,
     isLoggingIn: false,
     isUpdatingProfile: false,
+    isVerifyingOtp: false,
+    isResendingOtp: false,
     isCheckingAuth: true,
     onlineUsers: [],
     socket: null,
@@ -31,18 +34,20 @@ export const useAuthStore = create((set, get) => ({
     },
 
     signup: async (data) => {
-        set({ isSigningUp: true})
+        set({ isSigningUp: true })
         try {
             const res = await axiosInstance.post("/auth/signup", data)
-            set({ authUser: res.data})
-            toast.success("Account created successfully")
-            get().connectSocket(); 
-
+            // backend now returns { message, email } and sends OTP
+            if (res?.data?.email) {
+                set({ pendingEmail: res.data.email });
+            }
+            return res.data;
         }
-        catch(error) {
+        catch (error) {
             toast.error(error?.response?.data?.message)
+            throw error
         } finally {
-            set({ isSigningUp: false})
+            set({ isSigningUp: false })
         }
     },
 
@@ -60,6 +65,37 @@ export const useAuthStore = create((set, get) => ({
         }
         finally {
             set({ isLoggingIn: false})
+        }
+    },
+
+    verifyOtp: async ({ email, otp }) => {
+        set({ isVerifyingOtp: true })
+        try {
+            const res = await axiosInstance.post('/auth/verify-otp', { email, otp })
+            // On success backend sets cookie; fetch user
+            await get().checkAuth();
+            set({ pendingEmail: null });
+            toast.success('Verified successfully')
+            return res.data;
+        } catch (error) {
+            toast.error(error?.response?.data?.message || 'OTP verification failed')
+            throw error
+        } finally {
+            set({ isVerifyingOtp: false })
+        }
+    },
+
+    resendOtp: async (email) => {
+        set({ isResendingOtp: true })
+        try {
+            const res = await axiosInstance.post('/auth/resend-otp', { email })
+            toast.success('OTP resent')
+            return res.data
+        } catch (error) {
+            toast.error(error?.response?.data?.message || 'Resend failed')
+            throw error
+        } finally {
+            set({ isResendingOtp: false })
         }
     },
 
